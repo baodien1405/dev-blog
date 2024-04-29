@@ -32,7 +32,10 @@ export const blogApi = createApi({
     }),
 
     getPost: build.query<Post, string>({
-      queryFn: (id) => blogAPI.get(id)
+      queryFn: (id) => blogAPI.get(id),
+      providesTags(result, error, id) {
+        return [{ type: 'Posts', id }]
+      }
     }),
 
     updatePost: build.mutation<Post, { id: string; body: Post }>({
